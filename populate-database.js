@@ -100,10 +100,10 @@ async function insertCombinedDataToMongo(combinedData, dbUrl, dbName) {
 }
 
 async function markRandomSchoolsAndHospitals(lulcData, dbUrl, dbName) {
-    let nSchools = (Math.abs(0.5 - Math.random()) * 100) % lulcData.length;
-    let nHospitals = (Math.abs(0.5 - Math.random()) * 100) % lulcData.length;
-
     let villages = lulcData.filter(x => (x['metadata']['lc_code'] == 'BURV') || (x['metadata']['lc_code'] == 'BURH'));
+
+    let nSchools = (Math.abs(0.5 - Math.random()) * 10) % villages.length + 1;
+    let nHospitals = (Math.abs(0.5 - Math.random()) * 10) % villages.length + 1;
 
     villages.sort(function() { return Math.random() });   // shuffle
     let schoolsHere = villages.slice(0, nSchools);
@@ -130,8 +130,13 @@ async function markRandomSchoolsAndHospitals(lulcData, dbUrl, dbName) {
         await db.dropCollection('Hospital');
     } catch (e) {}
 
+    process.stdout.write(`Making schools at ${schoolsHere.length} out of ${villages.length} settlements ... `);
     await db.collection('School').insertMany(schoolsHere);
+    process.stdout.write('DONE \n')
+
+    process.stdout.write(`Making hospitals at ${hospitalsHere.length} out of ${villages.length} settlements`);
     await db.collection('Hospital').insertMany(hospitalsHere);
+    process.stdout.write('DONE \n')
 
     conn.close();
 }
@@ -156,7 +161,6 @@ if (require.main === module) {
 
     let dbUrl = "mongodb://localhost:27017/";
     let dbName = "sih";
+    markRandomSchoolsAndHospitals(combinedData['LULC'], dbUrl, dbName);
     insertCombinedDataToMongo(combinedData, dbUrl, dbName);
-
-    markRandomSchoolsAndHospitals(combinedData['LULC'], dbUrl, dbName):
 }
