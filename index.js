@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 
 const makeNLPQuery = require('./dialog').makeQuery
-const geoSpatialQuery = require('./concat_geo').runner
+const geoSpatialQuery = require('./concat_geo').concatGeoJsons
 
 makeNLPQuery('suggest a place to build a hospital')
 
