@@ -132,10 +132,12 @@ async function markRandomSchoolsAndHospitals(lulcData, dbUrl, dbName) {
 
     process.stdout.write(`Making schools at ${schoolsHere.length} out of ${villages.length} settlements ... `);
     await db.collection('School').insertMany(schoolsHere);
+    db.collection('School').createIndex({location:"2dsphere"});
     process.stdout.write('DONE \n')
 
     process.stdout.write(`Making hospitals at ${hospitalsHere.length} out of ${villages.length} settlements`);
     await db.collection('Hospital').insertMany(hospitalsHere);
+    db.collection('Hospital').createIndex({location:"2dsphere"});
     process.stdout.write('DONE \n')
 
     conn.close();
