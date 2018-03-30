@@ -101,7 +101,6 @@ async function findByRoadStatus(status){
     )
     let roads = await cursorToArray(cursor)
     return roads
-
 }
 
 async function showVillage(villname){
@@ -112,6 +111,8 @@ async function showVillage(villname){
     let village = await cursorToArray(cursor)
     return village
 }
+
+
 
 async function findHospitalsInRadius(radius) {
   // there's just GP available this time. So, just consider that
@@ -131,11 +132,17 @@ async function findHospitalsInRadius(radius) {
   return hospitals;
 }
 
+
 module.exports = {
-  setupDatabase,
-  findSchoolsInRadius,
-  findHospitalsInRadius
+    setupDatabase,
+    findSchools,
+    findHospitals,
+    findDrainage,
+    findCanals,
+    findSchoolsInRadius,
+    findHospitalsInRadius
 };
+
 
 if (require.main === module) {
   async function _inner() {
