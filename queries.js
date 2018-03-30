@@ -21,6 +21,35 @@ async function cursorToArray(cursor) {
     return result
 }
 
+async function findSchools() {
+    let cursor = await db.collection('School').find({}, {'location': 1})
+    let schools = await cursorToArray(cursor)
+    return schools
+}
+
+async function findHospitals(){
+    let cursor = await db.collection('Hospital').find({}, {'location': 1})
+    let hospitals = await cursorToArray(cursor)
+    return hospitals
+}
+
+async function findDrainage() {
+    let cursor = await db.collection('Drainage').find({
+        "metadata.dr_code": "DRST"
+    },{'location': 1})
+    let drainage = await cursorToArray(cursor)
+    return drainage
+}
+
+async function findCanals() {
+    let cursor = await db.collection('Drainage').find(
+        {"metadata.dr_code": {$in: ["CANM", "CAND"]}},{'location': 1}
+    )
+    let canals = await cursorToArray(cursor)
+    return canals
+}
+
+
 async function findSchoolsInRadius(radius) {
     // there's just GP available this time. So, just consider that
     let kuruduGp = await db.collection('Panchayat').findOne()

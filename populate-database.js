@@ -38,7 +38,7 @@ function readAllGeoJson(datadir) {
 }
 
 function calculateCentroid(coordinates) {
-    coordinates = coordinates[0];
+    coordinates = coordinates[0][0][0]=== undefined? coordinates: coordinates[0]
     let centroid_x = 0.0;
     let centroid_y = 0.0;
     for (let i of coordinates){
