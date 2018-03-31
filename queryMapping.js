@@ -145,6 +145,34 @@ const mapping = {
             geoInfo: [result.gp, result.nh],
             showInCards: false
         };
+    },
+
+    navigate: async function(parameters) {
+        let village  = parameters.navigate_to
+        if (village === 'chandlodiya'){
+            return {
+                message: `Navigating to ${village}.`,
+                intent: {
+                    action: 'move_to',
+                    loc :{  
+                        lng:72.5410875,lat:23.0632311
+                    },
+                    zoom: 21
+                },
+                geoInfo: []
+            }
+        } else{
+            return {
+                message: `Navigating to ${village}.`,
+                intent: {
+                    action: 'move_to',
+                    loc: {lng:84.1538802, lat:18.5337648},
+                    zoom: 14
+                },
+                geoInfo: []
+            }
+        }
+        
     }
 
 }
