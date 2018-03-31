@@ -201,6 +201,26 @@ async function findNearestSchoolsToVillage(village_name){
 
 }
 
+async function filterRoadByBudget(budget, ans) {
+  ans.sort(function(a, b){
+      return a.metadata.Shape_Leng - b.metadata.Shape_Leng
+  })
+  ans_sorted = []
+  cost_spent = 0
+  budget_left = budget
+  factor = 100;
+
+  for (var i = 0 ; i < ans.length; i++) {
+    if(parseFloat(ans[i].metadata.Shape_Leng) * factor <= budget_left) {
+      budget_left -= ans[i].metadata.Shape_Leng * factor
+      ans_sorted.push(ans[i]);
+    }
+  }
+
+  return ans_sorted;
+}
+
+
 function describeDemography() {
     // return {
     //     gp: null
@@ -220,7 +240,8 @@ module.exports = {
     genericFind,
     findNearestNationalHighway,
     describeDemography,
-    findNearestSchoolsToVillage
+    findNearestSchoolsToVillage,
+    filterRoadByBudget
 };
 
 

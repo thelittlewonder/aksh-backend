@@ -71,10 +71,11 @@ const mapping = {
 
     find_future_X: async function (parameters) {
 
-        let number = parameters['number'];
-        var cas = parameters['availability'];
+        let budget = parameters['number'];
+        var cas1= parameters['availability'];
+        var cas2= parameters['current'];
 
-        switch(cas) {
+        switch(cas1) {
 
             case 'findAvailabilityWasteLand':
                 
@@ -100,6 +101,23 @@ const mapping = {
                 }
             break;
         }
+        
+        switch(cas2) {
+            case 'getKuchaRoads':
+                ans = await queries.genericFind('Road', {'metadata.type': 'Kutchha Road'})
+                budget = parameters['number'];
+                if (!budget )
+                    budget = 10000
+                filteredans = await queries.filterRoadByBudget(budget, ans)
+                // console.log(filteredans);
+                message = `${filteredans.length} Kutchha roads can be developed with given budget of ${budget} crores`
+                return {
+                    message: message,
+                    geoInfo: filteredans,
+                    showInCards: true
+                }
+        }
+    
     },
 
     find_current_X: async function(parameters){
