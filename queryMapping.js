@@ -125,6 +125,13 @@ const mapping = {
                 ans = await queries.describeDemography()
                 message = `There are ${ans.total} people and ${ans.chilidren} children.`
                 break
+            case 'population':
+                return {
+                    message: `The total population of this village is ${demgraphic_data['kurudu']['people']['population']} .`,
+                    geoInfo: ans,
+                    showInCards: true
+                }    
+
             default :
                 console.log('no match') 
         }  
