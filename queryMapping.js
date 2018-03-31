@@ -94,7 +94,7 @@ const mapping = {
         let ans;
         switch(current) {
             case 'getReservoir':
-                ans = await queries.genericFind('LULC', {'metadata.dscr3':'Reservoir / Tanks'})
+                ans = await queries.genericFind('LULC', {'metadata.lc_code':'WBRT'})
                 break;
             case 'getCanal':
                 ans = await queries.genericFind('LULC', {'metadata.dscr2':'Canal'})
