@@ -14,6 +14,16 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "mongodb": "^3.0.5",
+    "nodemon": "^1.17.2",
     "papaparse": "^4.3.7"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/littlewonder/aksh-backend.git.git"
+  },
+  "bugs": {
+    "url": "https://github.com/littlewonder/aksh-backend.git/issues"
+  },
+  "homepage": "https://github.com/littlewonder/aksh-backend.git#readme"
 }

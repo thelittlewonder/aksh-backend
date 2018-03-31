@@ -52,9 +52,68 @@ const mapping = {
         }
     },
 
-    find_future_X: function (parameters) {
+    find_future_X: async function (parameters) {
 
+        let number = parameters['number'];
+        var cas = parameters['availability'];
+
+        switch(cas) {
+            case 'findAvailabilityWasteLand':
+                let area = 0.000000009643762973 * number;
+                let futureX = await queries.findWasteLand();
+                
+                let filteredAnswer = [];
+                
+                for (var i = futureX.length - 1; i >= 0; i--) {
+                    console.log(futureX[i].metadata.Shape_Area, area)
+                    console.log(typeof(futureX[i].metadata.Shape_Area), typeof(area))
+                    if(futureX[i].metadata.Shape_Area <= area) {
+                        filteredAnswer.push(futureX[i].location);
+                    }
+                }
+                console.log(filteredAnswer);
+                return {
+                    message: `We found ${filteredAnswer.length} suitable location.`,
+                    geoInfo: filteredAnswer,
+                    showInCards: true
+                }
+            break;
+        }
     }
+
+    find_current_X: async function(parameters){
+        let current = parameters['current'];
+        let cursor;
+        let ans;
+        switch(current) {
+            case 'getReservior':
+                ans = await queries.genericFind('LULC', {'metadata.dscr3':'Reservoir / Tanks'})
+                break;
+            case 'getCanal':
+                ans = await queries.genericFind('LULC', {'metadata.dscr2':'Canal'})
+                break;
+            case 'getAllWater':
+                ans = await queries.genericFind('LULC', {'metadata.dscr3':'Water bodies'})
+                break;
+            case 'getMines':
+                ans = await queries.genericFind('LULC', {'metadata.dscr3':'Mining / Industrial'})
+                break;
+            case 'getDrainage':
+                ans = await queries.genericFind('LULC', {'metadata.dscr3':''})
+                break;
+            case 'getTransport':
+                ans = await queries.genericFind('LULC', {'metadata.dscr3':'Transportation'})
+                break;
+            default :
+                console.log('no match')   
+            return {
+                message: `Found ${ans.length} locations.`,
+                geoInfo: ans,
+                showInCards: true
+            }
+        }
+    }
+
 }
 
 

@@ -112,6 +112,12 @@ async function showVillage(villname){
     return village
 }
 
+async function findWasteLand() {
+    let cursor = db.collection('LULC').find({'metadata.dscr3':'Barren rocky'})
+    let wasteLands = await cursorToArray(cursor);
+
+    return wasteLands;
+}
 
 
 async function findHospitalsInRadius(radius) {
@@ -140,7 +146,8 @@ module.exports = {
     findDrainage,
     findCanals,
     findSchoolsInRadius,
-    findHospitalsInRadius
+    findHospitalsInRadius,
+    findWasteLand
 };
 
 
