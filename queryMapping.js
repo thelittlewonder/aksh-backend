@@ -22,8 +22,9 @@ const mapping = {
     find_in_radius: async function (parameters) {
 
         let radius = parameters['unit-length']['amount'];
-        radius === undefined ? 10000: radius
-        let factor;
+        radius = radius === undefined ? 100000: radius
+        // console.log(radius)
+        let factor = 1 ;
         if (parameters['unit-length'].unit ==='m')
             factor = 1;
         else if (parameters['unit-length'].unit ==='km')
@@ -34,6 +35,7 @@ const mapping = {
 
         switch(parameters.poi) {
             case 'schools':
+            console.log(distance)
                 let schools = await queries.findSchoolsInRadius(distance);
                 return {
                     message: `There are ${schools.length} schools in given radius.`,

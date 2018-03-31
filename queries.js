@@ -20,17 +20,6 @@ async function cursorToArray(cursor) {
   return result;
 }
 
-async function findSchools() {
-  let cursor = await db.collection("School").find();
-  let schools = await cursorToArray(cursor);
-  return schools;
-}
-
-async function findHospitals() {
-  let cursor = await db.collection("Hospital").find();
-  let hospitals = await cursorToArray(cursor);
-  return hospitals;
-}
 
 async function findDrainage() {
   let cursor = await db.collection("Drainage").find(
