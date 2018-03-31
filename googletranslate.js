@@ -15,20 +15,37 @@ async function translation(input, lang='hi') {
     format: 'text'
   };
   
-  await axios.post('https://translation.googleapis.com/language/translate/v2', data, headers)
-    .then((response) => {
-      ttext = response.data.data.translations[0].translatedText
-      console.log(response.data.data)
-      return ttext
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  var translatedText = ''
+
+  try {
+    let response = await axios.post('https://translation.googleapis.com/language/translate/v2', data, headers)
+    return response.data.data.translations[0].translatedText
+  } catch (e) {
+    console.error('some error in translate')
+  }
+    // .then((response) => {
+    //   ttext = response.data.data.translations[0].translatedText
+    //   // console.log(response.data.data)
+    //   translatedText = ttext
+    //   return ttext
+    // })
+    // .catch((error) => {
+    //   // console.log(error)
+    //   console.log('some error here')
+    // })
 }
 
 
-console.log(translation('हिन्दी में टाइप करें'))
 
 module.exports = {
   translation
+}
+
+if (require.main === module) {
+
+  async function _inner() {
+    console.log(await translation('हिन्दी में टाइप करें'))
+  }
+  _inner();
+
 }
