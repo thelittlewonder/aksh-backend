@@ -14,8 +14,11 @@ const mapping = {
     'Default Fallback Intent': async function (parameters) {
         return {
             message: 'Sorry, I could not recognize this command',
-            geoInfo: null,
-            showInCards: false
+            geoInfo: [],
+            showInCards: false,
+            intent: {
+                action: 'failure'
+            }
         }
     },
 
@@ -35,17 +38,21 @@ const mapping = {
 
         switch(parameters.poi) {
             case 'schools':
-            console.log(distance)
                 let schools = await queries.findSchoolsInRadius(distance);
+                for (let each of schools) {
+                    each['showInCards'] = true
+                }
                 return {
                     message: `There are ${schools.length} schools in given radius.`,
-                    geoInfo: schools,
-                    showInCards: true
+                    geoInfo: schools
                 }
                 break;
 
             case 'hospitals':
                 let hospitals = await queries.findHospitalsInRadius(distance);
+                for (let each of schools) {
+                    each['showInCards'] = true
+                }
                 return {
                     message: `There are ${hospitals.length} hospitals in given radius.`,
                     geoInfo: hospitals,
@@ -134,7 +141,7 @@ const mapping = {
                 ans = await queries.genericFind('LULC', {'metadata.dscr1':'Water bodies'})
                 console.log('ans', ans)
                 for (let each of ans) {
-                    each['showInCard'] = true
+                    each['showInCards'] = true
 
                     switch (each.metadata.lc_code) {
                         case 'WBCN': 
@@ -170,7 +177,7 @@ const mapping = {
                 break;
             case 'population':
                 ans = queries.describeDemography()
-                message = `There are ${ans.population} people with sex ration ${ans.sex_ratio} and ${ans['0_6_age']} children.`
+                message = `There are ${ans.population} people with sex ratio ${ans.sex_ratio} and ${ans['0_6_age']} children.`
                 ans = null
                 break
 
@@ -180,12 +187,18 @@ const mapping = {
         return {
             message: message,
             geoInfo: ans,
-            showInCards: true
+            showInCards: true,
+            intent: {action: 'plot'}
         }
     },
 
     find_nearest_NH: async function(parameters) {
         let result = await queries.findNearestNationalHighway();
+        result.gp['color'] = '#c0ea56'
+        result['showInCards'] = false
+        result.nh['color'] = '#fff'
+        result.nh['showInCards'] = false
+
         return {
             message: `Nearest national highway is at approximately ${result.distance} kilometers`,
             geoInfo: [result.gp, result.nh],
