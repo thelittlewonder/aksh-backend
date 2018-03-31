@@ -115,7 +115,15 @@ const mapping = {
             geoInfo: ans,
             showInCards: true
         }
-        
+    },
+
+    find_nearest_NH: async function(parameters) {
+        let result = queries.find_nearest_NH();
+        return {
+            message: `Nearest national highway is at approximately ${result.distance} kilometers`,
+            geoInfo: [result.gp, result.nh],
+            showInCards: false
+        };
     }
 
 }

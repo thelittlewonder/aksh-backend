@@ -2,78 +2,112 @@ const MongoClient = require("mongodb").MongoClient;
 
 var conn, db;
 
+function euclideanDistance(coord1, coord2) {
+    let x_square = Math.pow((coord0[0] - coord1[0]), 2);
+    let y_square = Math.pow((coord0[1] - coord1[1]), 2);
+    return Math.sqrt(x_square + y_square);
+}
+
+function getMinPos(sequence) {
+    if (sequence.length == 0) {
+        return 0;
+    }
+    let minPos = 0, minValue = sequence[0]
+    for (let i = 1; i < sequence.length; i++) {
+        if (sequence[i] < minValue) {
+            minValue = sequence[i];
+            minPos = i;
+        }
+    }
+    return minPos;
+}
+
 async function setupDatabase(dbUrl, dbName) {
-  try {
-    conn = await MongoClient.connect(dbUrl);
-    db = conn.db(dbName);
-  } catch (e) {
-    console.log("error connecting to database", e);
-    return;
-  }
+    try {
+        conn = await MongoClient.connect(dbUrl);
+        db = conn.db(dbName);
+    } catch (e) {
+        console.log("error connecting to database", e);
+        return;
+    }
 }
 
 async function cursorToArray(cursor) {
-  let result = [];
-  for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
-    result.push(doc);
-  }
-  return result;
+    let result = [];
+    for (let doc = await cursor.next(); doc != null; doc = await cursor.next()) {
+        result.push(doc);
+    }
+    return result;
 }
 
+<<<<<<< HEAD
+=======
+async function findSchools() {
+    let cursor = await db.collection("School").find();
+    let schools = await cursorToArray(cursor);
+    return schools;
+}
+
+async function findHospitals() {
+    let cursor = await db.collection("Hospital").find();
+    let hospitals = await cursorToArray(cursor);
+    return hospitals;
+}
+>>>>>>> implement nearest national highway
 
 async function findDrainage() {
-  let cursor = await db.collection("Drainage").find(
-    {
-      "metadata.dr_code": "DRST"
-    }
- 
-  );
-  let drainage = await cursorToArray(cursor);
-  return drainage;
+    let cursor = await db.collection("Drainage").find(
+        {
+            "metadata.dr_code": "DRST"
+        }
+        
+    );
+    let drainage = await cursorToArray(cursor);
+    return drainage;
 }
 
 async function findCanals() {
-  let cursor = await db
+    let cursor = await db
     .collection("Drainage")
     .find({ "metadata.dr_code": { $in: ["CANM", "CAND"] } });
-  let canals = await cursorToArray(cursor);
-  return canals;
+    let canals = await cursorToArray(cursor);
+    return canals;
 }
 
 async function slope(fcode) {
     //Translation from fcode from class should be done by dialogflow
-  let cursor = await db.collection("Slope").find(
-    {
-      "metadata.fcode": fcode
-    }
-    
-  );
-  let slopes = await cursorToArray(cursor);
-  return slopes;
+    let cursor = await db.collection("Slope").find(
+        {
+            "metadata.fcode": fcode
+        }
+        
+    );
+    let slopes = await cursorToArray(cursor);
+    return slopes;
 }
 
 async function findSchoolsInRadius(radius) {
-  // there's just GP available this time. So, just consider that
-  let kuruduGp = await db.collection("Panchayat").findOne();
-
-  let cursor = await db.collection("School").find({
-    location: {
-      $near: {
-        $geometry: kuruduGp.centroid,
-        $maxDistance: radius,
-        $minDistance: 0
-      }
-    }
-  });
-
-  let schools = await cursorToArray(cursor);
-  return schools;
+    // there's just GP available this time. So, just consider that
+    let kuruduGp = await db.collection("Panchayat").findOne();
+    
+    let cursor = await db.collection("School").find({
+        location: {
+            $near: {
+                $geometry: kuruduGp.centroid,
+                $maxDistance: radius,
+                $minDistance: 0
+            }
+        }
+    });
+    
+    let schools = await cursorToArray(cursor);
+    return schools;
 }
 
 async function showPanchayatArea(){
-  let cursor = await db.collection('Panchayat').find()
-  let panchayat = await cursorToArray(cursor)
-  return panchayat  
+    let cursor = await db.collection('Panchayat').find()
+    let panchayat = await cursorToArray(cursor)
+    return panchayat  
 }
 
 async function findByRoadType(type){
@@ -82,7 +116,7 @@ async function findByRoadType(type){
     )
     let roads = await cursorToArray(cursor)
     return roads
-
+    
 }
 async function findByRoadStatus(status){
     let cursor = await db.collection('Road').find(
@@ -108,29 +142,48 @@ async function showVillage(villname){
 async function findWasteLand() {
     let cursor = db.collection('LULC').find({'metadata.dscr3':'Barren rocky'})
     let wasteLands = await cursorToArray(cursor);
-
+    
     return wasteLands;
 }
 
 
 async function findHospitalsInRadius(radius) {
-  // there's just GP available this time. So, just consider that
-  let kuruduGp = await db.collection("Panchayat").findOne();
-
-  let cursor = await db.collection("Hospital").find({
-    location: {
-      $near: {
-        $geometry: kuruduGp.centroid,
-        $maxDistance: radius,
-        $minDistance: 0
-      }
-    }
-  });
-
-  let hospitals = await cursorToArray(cursor);
-  return hospitals;
+    // there's just GP available this time. So, just consider that
+    let kuruduGp = await db.collection("Panchayat").findOne();
+    
+    let cursor = await db.collection("Hospital").find({
+        location: {
+            $near: {
+                $geometry: kuruduGp.centroid,
+                $maxDistance: radius,
+                $minDistance: 0
+            }
+        }
+    });
+    
+    let hospitals = await cursorToArray(cursor);
+    return hospitals;
 }
 
+async function findNearestNationalHighway() {
+    // there's just GP available this time. So, just consider that
+    let kuruduGp = await db.collection("Panchayat").findOne();
+    
+    let cursor = await db.collection("Road").find(
+        { tr_rdcode: "TTPN" },
+        { centroid: true }
+    );
+    
+    let allNH = await cursorToArray(cursor);
+    let distances = allNH.map(nh => euclideanDistance(nh.centroid, kuruduGp.centroid));
+    let minPos = getMinPos(distances);
+
+    return {
+        gp: kuruduGp,
+        nh: allNH[minPos],
+        distance: distances[minPos]
+    }
+}
 
 module.exports = {
     setupDatabase,
@@ -141,22 +194,23 @@ module.exports = {
     findSchoolsInRadius,
     findHospitalsInRadius,
     findWasteLand,
-    genericFind
+    genericFind,
+    findNearestNationalHighway
 };
 
 
 if (require.main === module) {
-  async function _inner() {
-    let dbUrl = "mongodb://localhost:27017";
-    let dbName = "sih";
-    await setupDatabase(dbUrl, dbName);
-
-    // console.log(await findSchoolsInRadius(1000));
-    // console.log(await findHospitalsInRadius(2000));
-    console.log(await findByRoadType('Kutchha Road'))
-    console.log(await findByRoadStatus('Village Road'))
-    
-    conn.close();
-  }
-  _inner();
+    async function _inner() {
+        let dbUrl = "mongodb://localhost:27017";
+        let dbName = "sih";
+        await setupDatabase(dbUrl, dbName);
+        
+        // console.log(await findSchoolsInRadius(1000));
+        // console.log(await findHospitalsInRadius(2000));
+        console.log(await findByRoadType('Kutchha Road'))
+        console.log(await findByRoadStatus('Village Road'))
+        
+        conn.close();
+    }
+    _inner();
 }
