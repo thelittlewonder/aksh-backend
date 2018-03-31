@@ -196,17 +196,19 @@ module.exports = {
 
 
 if (require.main === module) {
-    async function _inner() {
-        let dbUrl = "mongodb://localhost:27017";
-        let dbName = "sih";
-        await setupDatabase(dbUrl, dbName);
-        
-        // console.log(await findSchoolsInRadius(1000));
-        // console.log(await findHospitalsInRadius(2000));
-        console.log(await findByRoadType('Kutchha Road'))
-        console.log(await findByRoadStatus('Village Road'))
-        
-        conn.close();
-    }
-    _inner();
+
+  async function _inner() {
+    let dbUrl = process.env.MONGO_URL;
+    let dbName = process.env.MONGO_DB;
+    await setupDatabase(dbUrl, dbName);
+
+    // console.log(await findSchoolsInRadius(1000));
+    // console.log(await findHospitalsInRadius(2000));
+    console.log(await findByRoadType('Kutchha Road'))
+    console.log(await findByRoadStatus('Village Road'))
+    
+    conn.close();
+  }
+  _inner();
+
 }

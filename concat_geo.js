@@ -32,7 +32,7 @@ async function concatGeoJsons( dbUrl, dbName) {
 module.exports = {concatGeoJsons}
 
 if (require.main === module){
-    let dbUrl = 'mongodb://localhost:27017/'
-    let dbName = 'sih'
+    let dbUrl = 'process.env.MONGO_URL'
+    let dbName = 'process.env.MONGO_DB'
     concatGeoJsons(dbUrl, dbName)
 }

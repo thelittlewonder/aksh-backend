@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+var dotenv = require('dotenv');
+dotenv.load();
 
 const makeNLPQuery = require('./dialog').makeQuery;
 const queryMapping = require('./queryMapping').mapping;
@@ -13,8 +15,8 @@ app.use(express.static(__dirname+'/public'));
 app.use(bodyParser.json());
 app.use(cors({credentials: true, origin: true}))
 
-let dbUrl = 'mongodb://localhost:27017/';
-let dbName = 'sih';
+let dbUrl = process.env.MONGO_URL;
+let dbName = process.env.MONGO_DB;
 
 app.get('/nlp', async (req, res) => {
     let q = req.query.q;
@@ -31,5 +33,5 @@ app.get('/', (req, res) => {
     res.send('api in nlp');
 })
 	
-app.listen(3000);
-console.log('Running on port 3000...');
+app.listen(process.env.PORT);
+console.log(`Running on port ${process.env.PORT}...`);

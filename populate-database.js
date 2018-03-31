@@ -161,8 +161,8 @@ if (require.main === module) {
     // console.log(combinedData);
     console.log(combinedData["LULC"][0]);
 
-    let dbUrl = "mongodb://localhost:27017/";
-    let dbName = "sih";
+    let dbUrl = process.env.MONGO_URL;
+    let dbName = process.env.MONGO_DB;
     markRandomSchoolsAndHospitals(combinedData['LULC'], dbUrl, dbName);
     insertCombinedDataToMongo(combinedData, dbUrl, dbName);
 }

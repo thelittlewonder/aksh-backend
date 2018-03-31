@@ -2,8 +2,8 @@
 
 const queries = require('./queries');
 
-const dbUrl = 'mongodb://localhost:27017'
-const dbName = 'sih'
+let dbUrl = process.env.MONGO_URL;
+let dbName = process.env.MONGO_DB;
 
 
 queries.setupDatabase(dbUrl, dbName);
