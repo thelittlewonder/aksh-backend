@@ -3,8 +3,8 @@ const MongoClient = require("mongodb").MongoClient;
 var conn, db;
 
 function euclideanDistance(coord1, coord2) {
-    let x_square = Math.pow((coord0[0] - coord1[0]), 2);
-    let y_square = Math.pow((coord0[1] - coord1[1]), 2);
+    let x_square = Math.pow((coord1[0] - coord2[0]), 2);
+    let y_square = Math.pow((coord1[1] - coord2[1]), 2);
     return Math.sqrt(x_square + y_square);
 }
 
@@ -167,12 +167,11 @@ async function findNearestNationalHighway() {
     let kuruduGp = await db.collection("Panchayat").findOne();
     
     let cursor = await db.collection("Road").find(
-        { tr_rdcode: "TTPN" },
-        { centroid: true }
+        { "metadata.status": "National Highway" }
     );
     
     let allNH = await cursorToArray(cursor);
-    let distances = allNH.map(nh => euclideanDistance(nh.centroid, kuruduGp.centroid));
+    let distances = allNH.map(nh => euclideanDistance(nh.centroid.coordinates, kuruduGp.centroid.coordinates));
     let minPos = getMinPos(distances);
 
     return {

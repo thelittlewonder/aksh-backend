@@ -122,7 +122,7 @@ const mapping = {
     },
 
     find_nearest_NH: async function(parameters) {
-        let result = queries.findNearestNationalHighway();
+        let result = await queries.findNearestNationalHighway();
         return {
             message: `Nearest national highway is at approximately ${result.distance} kilometers`,
             geoInfo: [result.gp, result.nh],
