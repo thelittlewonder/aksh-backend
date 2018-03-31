@@ -106,13 +106,14 @@ const mapping = {
                 ans = await queries.genericFind('LULC', {'metadata.dscr3':'Transportation'})
                 break;
             default :
-                console.log('no match')   
-            return {
-                message: `Found ${ans.length} locations.`,
-                geoInfo: ans,
-                showInCards: true
-            }
+                console.log('no match') 
+        }  
+        return {
+            message: `Found ${ans.length} locations.`,
+            geoInfo: ans,
+            showInCards: true
         }
+        
     }
 
 }
