@@ -58,10 +58,14 @@ const mapping = {
     find_future_X: async function (parameters) {
 
         let number = parameters['number'];
+        
         var cas = parameters['availability'];
 
         switch(cas) {
+
             case 'findAvailabilityWasteLand':
+                
+                number = number == ''? 100: number
                 let area = 0.000000009643762973 * number;
                 let futureX = await queries.findWasteLand();
                 
@@ -71,7 +75,7 @@ const mapping = {
                     console.log(futureX[i].metadata.Shape_Area, area)
                     console.log(typeof(futureX[i].metadata.Shape_Area), typeof(area))
                     if(futureX[i].metadata.Shape_Area <= area) {
-                        filteredAnswer.push(futureX[i].location);
+                        filteredAnswer.push(futureX[i]);
                     }
                 }
                 console.log(filteredAnswer);
