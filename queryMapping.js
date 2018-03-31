@@ -132,7 +132,7 @@ const mapping = {
     find_current_X: async function (parameters) {
         let current;
 
-        if (typeof (current) == 'string') {
+        if (typeof (parameters['current']) == 'string') {
             current = parameters['current']
         } else {
             current = parameters['current'][0]
