@@ -90,7 +90,14 @@ const mapping = {
     },
 
     find_current_X: async function(parameters){
-        let current = parameters['current'];
+        let current;
+
+        if (typeof(current) == 'string') {
+            current = parameters['current']
+        } else {
+            current = parameters['current'][0]
+        }
+
         let cursor;
         let ans;
         let message;
@@ -98,32 +105,52 @@ const mapping = {
         switch(current) {
             case 'getReservoir':
                 ans = await queries.genericFind('LULC', {'metadata.lc_code':'WBRT'})
-                message: `Found ${ans.length} locations.`
+                message: `Found ${ans.length} reservoirs.`
                 break;
             case 'getCanal':
                 ans = await queries.genericFind('LULC', {'metadata.dscr2':'Canal'})
-                message: `Found ${ans.length} locations.`
+                message: `Found ${ans.length} canals.`
                 break;
             case 'getAllWater':
-                ans = await queries.genericFind('LULC', {'metadata.dscr3':'Water bodies'})
-                message: `Found ${ans.length} locations.`
+                ans = await queries.genericFind('LULC', {'metadata.dscr1':'Water bodies'})
+                console.log('ans', ans)
+                for (let each of ans) {
+                    each['showInCard'] = true
+
+                    switch (each.metadata.lc_code) {
+                        case 'WBCN': 
+                            each['color'] = '#299ef4'
+                            break
+
+                        case 'WBLP':
+                        case 'WBRS':
+                            each['color'] = '#144ba2'
+                            break
+
+                        case 'WBRT':
+                            each['color'] = '#00e1e1'
+                            break
+
+                        default:
+                            each['color'] = 'blue'
+                    }
+                }
+                message: `Found ${ans.length} water sources.`
                 break;
             case 'getMines':
                 ans = await queries.genericFind('LULC', {'metadata.dscr3':'Mining / Industrial'})
-                message: `Found ${ans.length} locations.`
+                message: `Found ${ans.length} mines.`
                 break;
             case 'getDrainage':
                 ans = await queries.genericFind('LULC', {'metadata.dscr3':''})
-                message: `Found ${ans.length} locations.`
-                message: `Found ${ans.length} locations.`
+                message: `Found ${ans.length} drainages.`
                 break;
             case 'getTransport':
                 ans = await queries.genericFind('LULC', {'metadata.dscr3':'Transportation'})
-                message: `Found ${ans.length} locations.`
+                message: `Found ${ans.length} transport locations.`
                 break;
             case 'population':
                 ans = queries.describeDemography()
-                console.log(ans)
                 message = `There are ${ans.population} people with sex ration ${ans.sex_ratio} and ${ans['0_6_age']} children.`
                 ans = null
                 break
@@ -143,6 +170,7 @@ const mapping = {
         return {
             message: `Nearest national highway is at approximately ${result.distance} kilometers`,
             geoInfo: [result.gp, result.nh],
+            intent: {action: 'plot'},
             showInCards: false
         };
     },
