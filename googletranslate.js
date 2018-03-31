@@ -1,5 +1,5 @@
 const axios = require('axios');
-async function translation(input, lang='hi') {
+async function translation(input, lang='hi', target='en') {
 
   // 'hi','bn','gu','kn','ml','mr'
   let headers = {
@@ -11,7 +11,7 @@ async function translation(input, lang='hi') {
   let data = {
     q: input,
     source: lang,
-    target: 'en',
+    target: target,
     format: 'text'
   };
   
@@ -44,7 +44,8 @@ module.exports = {
 if (require.main === module) {
 
   async function _inner() {
-    console.log(await translation('हिन्दी में टाइप करें'))
+    console.log(await translation('हिन्दी में टाइप करें', 'hi', 'en'))
+    console.log(await translation('Type in Hindi', 'en', 'hi'))    
   }
   _inner();
 

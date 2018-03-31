@@ -37,7 +37,9 @@ app.get('/nlp', async (req, res) => {
     console.log(r.message)
 
     if (lang == 'hi') {
-        r.message = await translate(r.message, 'en')
+        console.log('translating', r.message, await translate(r.message, 'en', 'hi'))
+        r['message'] = await translate(r.message, 'en', 'hi')
+        console.log(r.message)
     }
     console.log(r.message)
 
