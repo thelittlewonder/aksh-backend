@@ -216,7 +216,17 @@ const mapping = {
             showInCards: false
         };
     },
-
+    find_nearest_schools: async function(parameters) {
+        let result = await queries.findNearestSchoolsToVillage();
+        // result['showInCards'] = false
+        return {
+            message: `Nearest school to the village at approximately ${result.schools[0].distance} kilometers`,
+            geoInfo: [result.village, ...result.schools],
+        
+            intent: {action: 'plot'},
+            showInCards: false
+        }
+    },
     navigate: async function(parameters) {
         let village  = parameters.navigate_to
         if (village === 'chandlodiya'){

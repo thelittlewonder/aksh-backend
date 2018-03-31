@@ -182,14 +182,18 @@ async function findNearestNationalHighway() {
     }
 }
 async function findNearestSchoolsToVillage(village_name){
-  let village = await genericFind('LULC', {'metadata.PI_code': village_name} )
+  let village = (await genericFind('LULC', {'metadata.PI_code': village_name} ))[0]
   let schools = await genericFind('School',{})
+  village['showInCards'] = false
+  village['color']= '#c0ea56'
   for (let each of schools) {
-    each['showInCard'] = true
-    distance_from_village = euclideanDistance(school.centroid.coordinates, village.centroid.coordinates)
-    each.distance = distance_from_village
+    each['showInCards'] = true
+    distance_from_village = euclideanDistance(each.centroid.coordinates, village.centroid.coordinates)
+    each.distance = distance_from_village*100
+    each[color]= '#000'
   }
-  schools.sort((x) =>x.distance)
+  schools.sort((x,y ) =>x.distance> y.distance)
+  console.log(schools)
   return {
     village: village,
     schools: schools
@@ -215,7 +219,8 @@ module.exports = {
     findWasteLand,
     genericFind,
     findNearestNationalHighway,
-    describeDemography
+    describeDemography,
+    findNearestSchoolsToVillage
 };
 
 
