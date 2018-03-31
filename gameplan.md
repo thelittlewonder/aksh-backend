@@ -2,21 +2,21 @@
 
 * Navigate to gram panchayat Kurudu.
 
-* Tell me about the population of this village.
+* Tell me about the population of this panchayat.
 
-* Show water sources in this village.
+* Show all water sources in this panchayat.
 
-* Show potable water sources in this village.
+* Show drinking water sources in this panchayat.
 
-* Show agriculture lands in this village.
+* Show agriculture lands in this panchayat.
 
-* Show pucca roads in this village.
-
-* Show kutcha roads in this village.
+* Show roads in this panchayat.
 
 * Where shall I build new roads?
 
 * Show schools within 5 km.
+
+* Nearest school to a settlement.
 
 * Where should I open a school?
 
