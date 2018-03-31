@@ -8,10 +8,12 @@
   
   - Show agriculture lands in this panchayat (first 4 points run)
   
+  // skip risk
   - Where can I create new roads with 5 crore budget?
 
   - How many schools are there in 5 km range
   
+  // skip  risk
   - Where should I build new school? ( TEST PENDING )
 
 
