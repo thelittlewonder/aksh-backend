@@ -25,6 +25,6 @@ aaa
 
   - talk in hindi
   
-  - iss gram panchayat me kitne log rehte hai
+  - iss  panchayat me kitne log rehte hai
 
   - निकटतम राष्ट्रीय राजमार्ग ढूंढें
