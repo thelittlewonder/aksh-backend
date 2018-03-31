@@ -22,6 +22,7 @@ const mapping = {
     find_in_radius: async function (parameters) {
 
         let radius = parameters['unit-length']['amount'];
+        radius === undefined ? 10000: radius
         let factor;
         if (parameters['unit-length'].unit ==='m')
             factor = 1;
@@ -79,14 +80,14 @@ const mapping = {
                 }
             break;
         }
-    }
+    },
 
     find_current_X: async function(parameters){
         let current = parameters['current'];
         let cursor;
         let ans;
         switch(current) {
-            case 'getReservior':
+            case 'getReservoir':
                 ans = await queries.genericFind('LULC', {'metadata.dscr3':'Reservoir / Tanks'})
                 break;
             case 'getCanal':

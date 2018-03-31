@@ -102,7 +102,11 @@ async function findByRoadStatus(status){
     let roads = await cursorToArray(cursor)
     return roads
 }
-
+async function genericFind(collName, findQuery) {
+  let cursor = db.collection(collName).find(findQuery)
+  let result = await cursorToArray(cursor);
+  return result;
+}
 async function showVillage(villname){
     //get villname somehow
     let cursor = await db.collection('Village').find(
@@ -147,7 +151,8 @@ module.exports = {
     findCanals,
     findSchoolsInRadius,
     findHospitalsInRadius,
-    findWasteLand
+    findWasteLand,
+    genericFind
 };
 
 
