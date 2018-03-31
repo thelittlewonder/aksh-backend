@@ -12,19 +12,11 @@
 * Show agriculture lands in this panchayat.
   - Show agriculture lands in this panchayat
 
-* Show roads in this panchayat.
-
 * Where shall I build new roads?
   - Where can I create new roads with 5 crore budget?
 
 * Show schools within 5 km.
   - How many schools are there in 5 km range
-
-* Nearest school to a settlement.
-
-* Where should I open a school?
-
-* How far is the nearest national highway?
 
 
 ----
