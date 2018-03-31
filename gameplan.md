@@ -30,6 +30,7 @@
 ----
 
 * Naviagate to gram panchayat Y.
+  - Visit Chandlodiya
 
 * Change language to Hindi.
   - talk in hindi
