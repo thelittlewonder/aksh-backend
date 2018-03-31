@@ -121,16 +121,12 @@ const mapping = {
                 ans = await queries.genericFind('LULC', {'metadata.dscr3':'Transportation'})
                 message: `Found ${ans.length} locations.`
                 break;
-            case 'demography':
-                ans = await queries.describeDemography()
-                message = `There are ${ans.total} people and ${ans.chilidren} children.`
-                break
             case 'population':
-                return {
-                    message: `The total population of this village is ${demgraphic_data['kurudu']['people']['population']} .`,
-                    geoInfo: ans,
-                    showInCards: true
-                }    
+                ans = queries.describeDemography()
+                console.log(ans)
+                message = `There are ${ans.population} people with sex ration ${ans.sex_ratio} and ${ans['0_6_age']} children.`
+                ans = null
+                break
 
             default :
                 console.log('no match') 

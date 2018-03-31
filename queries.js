@@ -1,4 +1,5 @@
 const MongoClient = require("mongodb").MongoClient;
+const demographics = require('./demographic.json')
 
 var conn, db;
 
@@ -181,11 +182,11 @@ async function findNearestNationalHighway() {
     }
 }
 
-async function describeDemography() {
+function describeDemography() {
     // return {
     //     gp: null
     // }
-    return null;
+    return demographics.kurudu.people;
 }
 
 module.exports = {
@@ -198,7 +199,8 @@ module.exports = {
     findHospitalsInRadius,
     findWasteLand,
     genericFind,
-    findNearestNationalHighway
+    findNearestNationalHighway,
+    describeDemography
 };
 
 
