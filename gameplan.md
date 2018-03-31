@@ -32,5 +32,6 @@
 * Naviagate to gram panchayat Y.
 
 * Change language to Hindi.
+  - talk in hindi
 
 * Some questions in Hindi.
