@@ -25,3 +25,5 @@ This is the backend of Speaking Geo-GP assistant.
 * `index.js` : The entry point of the express app.
 * `queries.js` : This file houses all required methods for geographical queries.
 * `queryMapping.js` : This file maps intent obtained from natural language processing to respective database query.
+
+* `populate-database.js` : This script reads given data from ISRO and populates MongoDB database to optimize queries.
