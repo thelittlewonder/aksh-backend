@@ -181,6 +181,21 @@ async function findNearestNationalHighway() {
         distance: distances[minPos]
     }
 }
+async function findNearestSchoolsToVillage(village_name){
+  let village = await genericFind('LULC', {'metadata.PI_code': village_name} )
+  let schools = await genericFind('School',{})
+  for (let each of schools) {
+    each['showInCard'] = true
+    distance_from_village = euclideanDistance(school.centroid.coordinates, village.centroid.coordinates)
+    each.distance = distance_from_village
+  }
+  schools.sort((x) =>x.distance)
+  return {
+    village: village,
+    schools: schools
+  }
+
+}
 
 function describeDemography() {
     // return {
