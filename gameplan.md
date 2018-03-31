@@ -28,3 +28,4 @@
   - talk in hindi
 
 * Some questions in Hindi.
+  - निकटतम राष्ट्रीय राजमार्ग ढूंढें
