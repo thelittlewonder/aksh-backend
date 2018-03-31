@@ -44,7 +44,10 @@ const mapping = {
                 }
                 return {
                     message: `There are ${schools.length} schools in given radius.`,
-                    geoInfo: schools
+                    geoInfo: schools,
+                    intent: {
+                        action: 'plot'
+                    }
                 }
                 break;
 
@@ -56,7 +59,9 @@ const mapping = {
                 return {
                     message: `There are ${hospitals.length} hospitals in given radius.`,
                     geoInfo: hospitals,
-                    showInCards: true
+                    intent: {
+                        action: 'plot'
+                    }
                 }
                 break;
         }
