@@ -7,6 +7,8 @@ dotenv.load();
 
 const makeNLPQuery = require('./dialog').makeQuery;
 const queryMapping = require('./queryMapping').mapping;
+const translate = require('./googletranslate').translation;
+
 // const geoSpatialQuery = require('./concat_geo').concatGeoJsons;
 
 // makeNLPQuery('suggest a place to build a hospital')
@@ -20,11 +22,25 @@ let dbName = process.env.MONGO_DB;
 
 app.get('/nlp', async (req, res) => {
     let q = req.query.q;
+    let lang = req.query.lang;
+
+    if (lang == 'hi') {
+        q = await translate(q)
+    }
+    console.log(q)
+
     let d = await makeNLPQuery(q);
     console.log(d);
+    console.log(lang);
   
     let r = await queryMapping[d.metadata](d.parameters);
-    console.log(r)
+    console.log(r.message)
+
+    if (lang == 'hi') {
+        r.message = await translate(r.message, 'en')
+    }
+    console.log(r.message)
+
     // let r = await geoSpatialQuery(dbUrl, dbName);
     res.json(r);
 });

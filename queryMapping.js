@@ -146,7 +146,7 @@ const mapping = {
                 ans = await queries.genericFind('LULC',{'metadata.lc_code':{$in: ['AGPL','AGCR']}})
                 message = `Found ${ans.length} agriculture lands.`
                 for (let each of ans) {
-                    each['showInCard'] = true
+                    each['showInCards'] = true
                     switch (each.metadata.lc_code) {
                         case 'AGPL': 
                             each['color'] = '#7ed321'
