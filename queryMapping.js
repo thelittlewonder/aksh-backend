@@ -205,7 +205,7 @@ const mapping = {
     find_nearest_NH: async function(parameters) {
         let result = await queries.findNearestNationalHighway();
         result.gp['color'] = '#c0ea56'
-        result['showInCards'] = false
+        result.gp['showInCards'] = false
         result.nh['color'] = '#fff'
         result.nh['showInCards'] = false
 
