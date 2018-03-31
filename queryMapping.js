@@ -153,7 +153,7 @@ const mapping = {
             return {
                 message: `Navigating to ${village}.`,
                 intent: {
-                    action: 'move_to',
+                    action: 'moveTo',
                     loc :{  
                         lng:72.5410875,lat:23.0632311
                     },
@@ -165,7 +165,7 @@ const mapping = {
             return {
                 message: `Navigating to ${village}.`,
                 intent: {
-                    action: 'move_to',
+                    action: 'moveTo',
                     loc: {lng:84.1538802, lat:18.5337648},
                     zoom: 14
                 },
@@ -173,6 +173,18 @@ const mapping = {
             }
         }
         
+    },
+    switch_language: async function(parameters) {
+        let language_initials = parameters.poi.slice(0,2)
+        return{
+            message: `Changing language to ${parameters.poi}`,
+            intent:{
+                action: 'changeLanguage',
+                lang: language_initials
+            },
+            geoInfo: []    
+        }
+
     }
 
 }
