@@ -111,6 +111,25 @@ const mapping = {
                 ans = await queries.genericFind('LULC', {'metadata.dscr2':'Canal'})
                 message: `Found ${ans.length} canals.`
                 break;
+            case 'getAgriculture':
+                ans = await queries.genericFind('LULC',{'metadata.lc_code':{$in: ['AGPL','AGCR']}})
+                message = `Found ${ans.length} agriculture lands.`
+                for (let each of ans) {
+                    each['showInCard'] = true
+                    switch (each.metadata.lc_code) {
+                        case 'AGPL': 
+                            each['color'] = '#7ed321'
+                            break
+
+                        case 'AGCR':
+                        
+                            each['color'] = '#d0cb00'
+                            break
+                        default:
+                            each['color'] = 'blue'
+                    }
+                }
+                break;
             case 'getAllWater':
                 ans = await queries.genericFind('LULC', {'metadata.dscr1':'Water bodies'})
                 console.log('ans', ans)
