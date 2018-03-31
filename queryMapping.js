@@ -41,6 +41,7 @@ const mapping = {
                 let schools = await queries.findSchoolsInRadius(distance);
                 for (let each of schools) {
                     each['showInCards'] = true
+                    color: '#fff'
                 }
                 return {
                     message: `There are ${schools.length} schools in given radius.`,
@@ -55,6 +56,7 @@ const mapping = {
                 let hospitals = await queries.findHospitalsInRadius(distance);
                 for (let each of schools) {
                     each['showInCards'] = true
+                    color: '#fff'
                 }
                 return {
                     message: `There are ${hospitals.length} hospitals in given radius.`,
@@ -70,7 +72,6 @@ const mapping = {
     find_future_X: async function (parameters) {
 
         let number = parameters['number'];
-        
         var cas = parameters['availability'];
 
         switch(cas) {
@@ -111,7 +112,7 @@ const mapping = {
         }
 
         let cursor;
-        let ans;
+        let ans = [];
         let message;
 
         switch(current) {
@@ -166,20 +167,24 @@ const mapping = {
                             each['color'] = 'blue'
                     }
                 }
-                message: `Found ${ans.length} water sources.`
+                message = `Found ${ans.length} water sources.`
                 break;
+
             case 'getMines':
                 ans = await queries.genericFind('LULC', {'metadata.dscr3':'Mining / Industrial'})
-                message: `Found ${ans.length} mines.`
+                message = `Found ${ans.length} mines.`
                 break;
+
             case 'getDrainage':
                 ans = await queries.genericFind('LULC', {'metadata.dscr3':''})
-                message: `Found ${ans.length} drainages.`
+                message = `Found ${ans.length} drainages.`
                 break;
+
             case 'getTransport':
                 ans = await queries.genericFind('LULC', {'metadata.dscr3':'Transportation'})
-                message: `Found ${ans.length} transport locations.`
+                message = `Found ${ans.length} transport locations.`
                 break;
+
             case 'population':
                 ans = queries.describeDemography()
                 message = `There are ${ans.population} people with sex ratio ${ans.sex_ratio} and ${ans['0_6_age']} children.`
