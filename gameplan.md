@@ -7,8 +7,6 @@
   - Where does water in this panchayat come from?
   
   - Show agriculture lands in this panchayat (first 4 points run)
-  
-aaa
 
   - Where can I create new roads with 5 crore budget?
 
