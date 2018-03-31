@@ -113,7 +113,7 @@ const mapping = {
 
         let cursor;
         let ans = [];
-        let message;
+        let message = 'Cannot determine the command';
 
         switch(current) {
             case 'getReservoir':
