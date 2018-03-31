@@ -134,8 +134,8 @@ async function findHospitalsInRadius(radius) {
 
 module.exports = {
     setupDatabase,
-    findSchools,
-    findHospitals,
+    // findSchools,
+    // findHospitals,
     findDrainage,
     findCanals,
     findSchoolsInRadius,
