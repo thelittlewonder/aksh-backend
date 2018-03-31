@@ -5,7 +5,7 @@ async function translation(input, lang='hi') {
   let headers = {
     headers : {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ya29.c.El-PBXRRLj2A2NIgO3UGj6fjk0ZW8rEh025djlwnXi6VS7wFExyyHVp21_kvFP5aTkLiXCdrj4FtF3H605cLJ9vrQ2cLd1VqIOQ9Pt61jfXFAPG3v0a6hp6ElvDg8LqsOQ'
+      'Authorization': 'Bearer ya29.c.El-PBXEbpnmEKhFA1I96C-293AnYEn8cZ1zG6GNmHhy-cQIgbLPNOmkQddqUW1h9MWrWG1iFqcNJWlQXqeNgXNICqLdFSJMQ4AXV8bi9GYHyBmeeuzFspg54dIUD4NMpFw'
     }
   };
   let data = {
@@ -27,7 +27,7 @@ async function translation(input, lang='hi') {
 }
 
 
-translation('हिन्दी में टाइप करें')
+console.log(translation('हिन्दी में टाइप करें'))
 
 module.exports = {
   translation
