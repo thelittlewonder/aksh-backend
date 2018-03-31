@@ -5,7 +5,7 @@ async function translation(input, lang='hi', target='en') {
   let headers = {
     headers : {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ya29.c.El-PBXEbpnmEKhFA1I96C-293AnYEn8cZ1zG6GNmHhy-cQIgbLPNOmkQddqUW1h9MWrWG1iFqcNJWlQXqeNgXNICqLdFSJMQ4AXV8bi9GYHyBmeeuzFspg54dIUD4NMpFw'
+      'Authorization': 'Bearer ya29.c.El-PBRWR0e1AAK4ISk5WEw40rYYYmkWNYEsZCXDEpR6P2KnZc6nucGZBE7a6XJXKDvcBdgoFjnmmScMv9AC0k47XePM2EqcBKB5_c8yn5ATojHKOpUJWqarxWKhPYVSqFw'
     }
   };
   let data = {

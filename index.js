@@ -23,9 +23,13 @@ let dbName = process.env.MONGO_DB;
 app.get('/nlp', async (req, res) => {
     let q = req.query.q;
     let lang = req.query.lang;
+    console.log(q, lang)
 
     if (lang == 'hi') {
         q = await translate(q)
+    }
+    if (lang == 'bn') {
+        q = await translate(q, 'bn', 'en')
     }
     console.log(q)
 
@@ -36,10 +40,16 @@ app.get('/nlp', async (req, res) => {
     let r = await queryMapping[d.metadata](d.parameters);
     console.log(r.message)
 
+   
     if (lang == 'hi') {
         console.log('translating', r.message, await translate(r.message, 'en', 'hi'))
         r['message'] = await translate(r.message, 'en', 'hi')
-        console.log(r.message)
+        console.log('translated string', r['message'])
+    }
+    if (lang == 'bn') {
+        console.log('translating', r.message, await translate(r.message, 'en', 'bn'))
+        r['message'] = await translate(r.message, 'en', 'bn')
+        console.log('translated string', r['message'])
     }
     console.log(r.message)
 
