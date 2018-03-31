@@ -181,6 +181,13 @@ async function findNearestNationalHighway() {
     }
 }
 
+async function describeDemography() {
+    // return {
+    //     gp: null
+    // }
+    return null;
+}
+
 module.exports = {
     setupDatabase,
     // findSchools,

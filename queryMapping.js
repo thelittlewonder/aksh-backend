@@ -67,6 +67,7 @@ const mapping = {
                 
                 number = number == ''? 100: number
                 let area = 0.000000009643762973 * number;
+                // area = 0
                 let futureX = await queries.findWasteLand();
                 
                 let filteredAnswer = [];
@@ -74,7 +75,7 @@ const mapping = {
                 for (var i = futureX.length - 1; i >= 0; i--) {
                     console.log(futureX[i].metadata.Shape_Area, area)
                     console.log(typeof(futureX[i].metadata.Shape_Area), typeof(area))
-                    if(futureX[i].metadata.Shape_Area <= area) {
+                    if(futureX[i].metadata.Shape_Area >= area) {
                         filteredAnswer.push(futureX[i]);
                     }
                 }
@@ -92,30 +93,43 @@ const mapping = {
         let current = parameters['current'];
         let cursor;
         let ans;
+        let message;
+
         switch(current) {
             case 'getReservoir':
                 ans = await queries.genericFind('LULC', {'metadata.lc_code':'WBRT'})
+                message: `Found ${ans.length} locations.`
                 break;
             case 'getCanal':
                 ans = await queries.genericFind('LULC', {'metadata.dscr2':'Canal'})
+                message: `Found ${ans.length} locations.`
                 break;
             case 'getAllWater':
                 ans = await queries.genericFind('LULC', {'metadata.dscr3':'Water bodies'})
+                message: `Found ${ans.length} locations.`
                 break;
             case 'getMines':
                 ans = await queries.genericFind('LULC', {'metadata.dscr3':'Mining / Industrial'})
+                message: `Found ${ans.length} locations.`
                 break;
             case 'getDrainage':
                 ans = await queries.genericFind('LULC', {'metadata.dscr3':''})
+                message: `Found ${ans.length} locations.`
+                message: `Found ${ans.length} locations.`
                 break;
             case 'getTransport':
                 ans = await queries.genericFind('LULC', {'metadata.dscr3':'Transportation'})
+                message: `Found ${ans.length} locations.`
                 break;
+            case 'demography':
+                ans = await queries.describeDemography()
+                message = `There are ${ans.total} people and ${ans.chilidren} children.`
+                break
             default :
                 console.log('no match') 
         }  
         return {
-            message: `Found ${ans.length} locations.`,
+            message: message,
             geoInfo: ans,
             showInCards: true
         }
