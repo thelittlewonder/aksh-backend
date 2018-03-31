@@ -40,8 +40,6 @@ async function cursorToArray(cursor) {
     return result;
 }
 
-<<<<<<< HEAD
-=======
 async function findSchools() {
     let cursor = await db.collection("School").find();
     let schools = await cursorToArray(cursor);
@@ -53,7 +51,6 @@ async function findHospitals() {
     let hospitals = await cursorToArray(cursor);
     return hospitals;
 }
->>>>>>> implement nearest national highway
 
 async function findDrainage() {
     let cursor = await db.collection("Drainage").find(
