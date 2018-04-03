@@ -1,5 +1,9 @@
 # Aksh [Backend]
-The Geo-GP Assistant
+Making Data Driven Decisions from Geo-Spatial Data
+
+### Won the 4th Prize at Smart India Hackathon 2018 (ISRO).
+
+Android App Source Code: https://github.com/littlewonder/aksh-app
 ---
 
 
